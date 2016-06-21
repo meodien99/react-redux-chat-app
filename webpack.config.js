@@ -1,48 +1,32 @@
-var path = require('path')
-var webpack = require('webpack');
-var libraryName = 'bundle';
-var outputFile = libraryName + '.js';
+'use strict';
 
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var env = process.env.WEBPACK_ENV;
+const path = require('path');
+const args = require('minimist')(process.argv.slice(2));
 
-var plugins = [], outputFile;
+// List of allowed environments
+const allowedEnvs = ['dev', 'dist', 'test'];
 
-if (env === 'build') { // npm run build
-   plugins.push(new UglifyJsPlugin({ minimize: true }));
-   outputFile = libraryName + '.min.js';
+// Set the correct environment
+let env;
+if (args._.length > 0 && args._.indexOf('start') !== -1) {
+  env = 'test';
+} else if (args.env) {
+  env = args.env;
 } else {
-   outputFile = libraryName + '.js';
+  env = 'dev';
+}
+process.env.REACT_WEBPACK_ENV = env;
+
+/**
+ * Build the webpack configuration
+ * @param  {String} wantedEnv The wanted environment
+ * @return {Object} Webpack config
+ */
+function buildConfig(wantedEnv) {
+  let isValid = wantedEnv && wantedEnv.length > 0 && allowedEnvs.indexOf(wantedEnv) !== -1;
+  let validEnv = isValid ? wantedEnv : 'dev';
+  let config = require(path.join(__dirname, 'confs/' + validEnv));
+  return config;
 }
 
-var config = {
-   entry: __dirname + '/src/app.js',
-   devtool: 'source-map',
-   output:{
-      path: __dirname + '/dist',
-      filename: outputFile,
-      library: libraryName,
-      libraryTarget: 'umd',
-      umdNameDefine: true
-   },
-   module: {
-      loaders : [
-         {
-            test: /(\.jsx|\.js)$/,
-            loader: 'babel',
-            exclude: /(node_modules|bower_components)/
-         },
-         {
-            test: /(\.jsx|\.js)$/,
-            loader: 'eslint-loader',
-            exclude: /(node_modules)/
-         }
-      ]
-   },
-   resolve: {
-      root: path.resolve(__dirname, 'src'),
-      extensions: ['', '.js']
-   }
-};
-
-module.exports = config;
+module.exports = buildConfig(env);

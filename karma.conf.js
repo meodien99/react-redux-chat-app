@@ -1,58 +1,35 @@
+var webpackCfg = require('./webpack.config');
+
+// Set node environment to testing
+process.env.NODE_ENV = 'test';
+
 module.exports = (config) => {
-   'use strict';
    config.set({
-      autoWatch: true,
-      singleRun: true,
-
-      frameworks: ['jspm', 'jasmine'],
+      basePath: '',
+      browsers: [ 'PhantomJS' ],
       files: [
-			'node_modules/babel-polyfill/dist/polyfill.js'
-		],
-
-      jspm: {
-         config: 'tests/config.js',
-         packages: 'tests/jspm_packages',
-         loadFiles: [
-            'tests/*.spec.js'
-         ],
-         serveFiles: [
-            'src/*.js'
-         ],
-         paths: {
-            'src/*' : 'base/src/*',
-            'tests/*': 'base/tests/*',
-            'github:*': 'base/tests/jspm_packages/github/*',
-            'npm:*': 'base/tests/jspm_packages/npm/*'
-         },
+         'test/loadtests.js'
+      ],
+      port: 3333,
+      captureTimeout: 60000,
+      frameworks: [ 'mocha', 'chai' ],
+      client: {
+         mocha: {}
       },
-
-      proxies: {
-         '/tests/': '/base/tests/',
-         '/jspm_packages/': '/tests/jspm_packages/'
-      },
-
-      browsers: ['PhantomJS'],
-
-      reporters: ['progress', 'coverage'],
+      singleRun: true,
+      reporters: [ 'mocha', 'coverage' ],
       preprocessors: {
-         'src/*.js': ['babel', 'sourcemap', 'coverage']
+         'test/loadtests.js': [ 'webpack', 'sourcemap' ]
       },
-      babelPreprocessor: {
-         options: {
-            sourceMap: 'inline'
-         },
-         sourceFileName: function(file){
-            return file.originalPath;
-         }
+      webpack: webpackCfg,
+      webpackServer: {
+         noInfo: true
       },
       coverageReporter: {
-         instrumenters: {isparta: require('isparta')},
-         instrumenter: {
-            'src/*.js': 'isparta'
-         },
+         dir: 'coverage/',
          reporters: [
             {
-               type: 'text-summary',
+               type: 'text',
                subdir: normalizationBrowserName
             },
             {
