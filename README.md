@@ -1,5 +1,5 @@
 # react-es6-boilerplate
-An es6 boilerplate including what's need to get HTML coverage reports working when using [Babel](https://babeljs.io/), [JSPM](http://jspm.io/), [Karma](http://karma-runner.github.io/), [Mocha](https://mochajs.org/), and [Istanbul](https://github.com/gotwarlost/istanbul) to run tests ES6 syntax.
+An es6 boilerplate including what's need to get HTML coverage reports working when using [Babel](https://babeljs.io/),  [Karma](http://karma-runner.github.io/), [Mocha](https://mochajs.org/), and [Istanbul](https://github.com/gotwarlost/istanbul) to run tests ES6 syntax.
 
 
 # Core structure
