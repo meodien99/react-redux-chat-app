@@ -50,7 +50,7 @@ class MyComponent extends React.Component {
 This folder will hold all of all your components.
 Which only includes elements to display, not container or represent to redux provider
 
-```javascript
+```
 import React, { Component } from 'react';
 
 export default class ChildComponent extends Component {
@@ -69,7 +69,8 @@ export default class ChildComponent extends Component {
 * containers/
 Used in the same purpose as *components* but it includes elements which are wrapper and provider between react
 and redux
-```javascript
+
+```
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import Main from './Main';
@@ -90,7 +91,7 @@ export default class RootContainer extends Component {
 
 * stores/
 Since *redux* are singleton store in an application, this folder to hold only index.js file
-```javascript
+```
 const loggerMiddleware = createLogger();
 
 export default function configureStore(initialState) {
