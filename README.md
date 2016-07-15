@@ -9,27 +9,28 @@ The main structure you will work looks like:
   |--actions/
   |--components/
   |--config/
-  |--images/ (All images you need to be held here.)
-  |--sources/
-  |--stores/
+  |--reducers/ 
+  |--sources/ (All images you need to be held here.)
+  |--stores/ (This folder holds all your data sources)
   |--styles/ (Holds all your stylesheets)
   |--app.js
   |--index.html
  --tests/
 ```
 * actions/
-This folder will hold all of all **flux** actions.
+This folder will hold all of all **redux** actions.
 We can include actions into your components or stores like this:
 ```javascript
-let react = require('react/addons');
-let DemoAction = require('actions/DemoAction');
-class DemoComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    DemoAction.calledMethod();
-  }
+export const TEST_ACTION = 'TEST_ACTION';
+
+export function testAction(text){
+    return {
+        type: TEST_ACTION,
+        text
+    }
 }
 ```
+
 * config/
 This folder holds configuration files for different environments.
 Used to provide your app with different settings based on the current environment.
@@ -45,60 +46,65 @@ class MyComponent extends React.Component {
 }
 ```
 
-* actions/
-This folder will hold all of all **flux** actions.
-We can include actions into your components or stores like this:
+* components/
+This folder will hold all of all your components.
+Which only includes elements to display, not container or represent to redux provider
 
 ```javascript
-let React = require('react/addons');
-let DemoAction = require('actions/DemoAction');
-class DemoComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    DemoAction.calledMethod();
+import React, { Component } from 'react';
+
+export default class ChildComponent extends Component {
+  render() {
+    const {text} = this.props;
+    return (
+      <div className="app">
+        <p>{text}</p>
+        <div>Please edit <code>src/components/Main.js</code> to get started!</div>
+      </div>
+    );
   }
 }
 ```
 
-* actions/
-This folder will hold all of all **flux** actions.
-We can include actions into your components or stores like this:
+* containers/
+Used in the same purpose as *components* but it includes elements which are wrapper and provider between react
+and redux
 ```javascript
-let React = require('react/addons');
-let DemoAction = require('actions/DemoAction');
-class DemoComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    DemoAction.calledMethod();
-  }
-}
-```
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import Main from './Main';
+import configureStore from '../stores';
 
-* sources/
-This folder will hold all of all **flux** data sources.
-We can include actions into your components or stores like this:
-```javascript
-let React = require('react/addons');
-let DemoSource = require('sources/DemoSource');
-class DemoComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    DemoSource.getRemoteData();
-  }
+const store = configureStore();
+
+export default class RootContainer extends Component {
+    render() {
+        return (
+            <Provider store={store}>
+                <Main />
+            </Provider>
+        );
+    }
 }
 ```
 
 * stores/
-This folder will hold all of all **flux** data stores.
-We can include actions into your components or stores like this:
+Since *redux* are singleton store in an application, this folder to hold only index.js file
 ```javascript
-let React = require('react/addons');
-let DemoStore = require('sources/DemoStore');
-class DemoComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    DemoStore.doSomething();
-  }
+const loggerMiddleware = createLogger();
+
+export default function configureStore(initialState) {
+    return createStore(
+        rootReducer,
+        initialState,
+        compose(
+            applyMiddleware(
+                thunkMiddleware,
+                loggerMiddleware
+            ),
+            window.devToolsExtension ? window.devToolsExtension() : f => f
+        ),
+    );
 }
 ```
 
