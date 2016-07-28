@@ -1,1 +1,93 @@
-/*APP CSS*/
+.modal-anim-enter {
+  opacity: 0.00;
+  transform: scale(0.7);
+  transition: all 0.2s; }
+
+.modal-anim-enter.modal-anim-enter-active {
+  opacity: 1;
+  transform: scale(1); }
+
+.modal-anim-leave {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.2s; }
+
+.modal-anim-leave.modal-anim-leave-active {
+  opacity: 0.00;
+  transform: scale(0.7); }
+
+#app .wrap-login {
+  border: 1px solid red;
+  position: relative;
+  width: 100%;
+  min-height: 500px; }
+  #app .wrap-login .login-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    background: #ddd245; }
+    #app .wrap-login .login-form input, #app .wrap-login .login-form button {
+      margin: 0 auto;
+      text-align: center;
+      padding: 3px;
+      margin-top: 5px;
+      border: none;
+      display: block; }
+    #app .wrap-login .login-form button {
+      padding: 6px 10px; }
+  #app .wrap-login .rooms-list {
+    background: #ddd245; }
+    #app .wrap-login .rooms-list .create-form {
+      width: 50%;
+      top: 50%;
+      left: 50%;
+      background-color: #ddd245;
+      padding: 15px;
+      text-align: centerl; }
+      #app .wrap-login .rooms-list .create-form input[type=text], #app .wrap-login .rooms-list .create-form input[type=password] {
+        display: inline-block;
+        width: 90%;
+        margin: 10px auto;
+        border: none; }
+      #app .wrap-login .rooms-list .create-form input[type=submit] {
+        background: green;
+        font-weight: bold;
+        color: #fff;
+        border: none;
+        margin: 0 auto;
+        display: inline-block; }
+    #app .wrap-login .rooms-list .rooms {
+      box-sizing: border-box;
+      margin: 0 auto;
+      display: block; }
+      #app .wrap-login .rooms-list .rooms .room {
+        width: 30%;
+        border: 1px solid red;
+        display: inline-block;
+        min-height: 140px;
+        margin: 1%;
+        margin-bottom: 20px;
+        position: relative;
+        text-align: center;
+        padding: 5px 0; }
+        #app .wrap-login .rooms-list .rooms .room__join .joinbtn {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          border: none;
+          padding: 6px 10px;
+          background-color: green;
+          color: #fff; }
+        #app .wrap-login .rooms-list .rooms .room__name {
+          margin-top: 10px;
+          font-weight: bolder; }
+        #app .wrap-login .rooms-list .rooms .room__user {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translate(-50%, -50%); }
+
+/*# sourceMappingURL=App.css.map */

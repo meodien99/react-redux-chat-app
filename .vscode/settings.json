@@ -1,0 +1,8 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.associations": {
+        "*.js": "javascriptreact"
+    },
+    "editor.fontSize": 17,
+    "javascript.validate.enable": false
+}

@@ -1,19 +1,14 @@
+/*eslint no-console:0 */
 import { combineReducers } from 'redux';
-import { TEST_ACTION } from '../actions';
+import { routerReducer } from 'react-router-redux';
 
-function testAction(state={}, action) {
-    switch (action.type) {
-        case TEST_ACTION:
-            return Object.assign({}, state, {
-                text: 'XXX'
-            });
-        default:
-            return state;
-    }
-}
+import { _isAuthen } from './authen';
+import { rooms } from './rooms';
 
 const rootReducer = combineReducers({
-    testAction
+    _isAuthen,
+    rooms,
+    routing: routerReducer
 });
 
 export default rootReducer;

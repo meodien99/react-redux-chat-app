@@ -5,7 +5,7 @@ let path = require('path');
 let webpack = require('webpack');
 
 let coreConfig = require('./core');
-let defaultSettings = require('./defaults');
+let defaultSettings = require('./default');
 
 let BowerWebpackPlugin = require('bower-webpack-plugin');
 
